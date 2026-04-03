@@ -1,3 +1,4 @@
 .DS_Store
 notes.txt
 notebooks/.ipynb_checkpoints/
+data/nba_pbp_2020_2025.csv
