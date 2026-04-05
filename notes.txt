@@ -1,1 +1,114 @@
 github for nba_api: https://github.com/swar/nba_api/blob/master/src/nba_api/stats/endpoints/playbyplayv3.pygit
+
+ the NBA and AWS built their own win probability model using seven engineered features — score differential, time remaining, possession count, and timeout availability AWS — and that's it. Simple and effective.
+
+
+
+# NBA Win Probability Predictor — Project Notes
+
+## Project Vision
+A full-stack web app where users create an account (Google/Apple sign-in) and can view all live NBA games — showing the score, quarter, time remaining, and a win probability prediction with a graph.
+
+**Stack:** XGBoost · FastAPI · WebSockets · React · PostgreSQL
+
+---
+
+## Phase 1: Data Collection
+
+### Setup
+- Created a virtual environment (`venv`) inside the project folder `sports-win-predictor`
+- Registered the venv as a Jupyter kernel (`sports-venv`) so notebooks use the correct Python
+
+### Data Source
+- Used `nba_api` library to pull play-by-play data
+- Endpoint: `PlayByPlayV3` for individual game data
+- Endpoint: `LeagueGameFinder` to get all game IDs across seasons
+
+### What Was Built
+- Pulled play-by-play data for the full **2024-25 NBA regular season**
+- Deduplicated game IDs using a Python `set`
+- Handled rate limiting with `time.sleep` between API calls
+- Implemented **exponential backoff retry logic** for timeout errors
+- Maintained a `failed_games` list to track games that couldn't be pulled
+- Combined all game DataFrames using `pd.concat`
+- Saved final dataset to: `data/nba_pbp_2020_2025.csv`
+
+### Project Structure
+```
+sports-win-predictor/
+├── venv/
+├── data/
+│   └── nba_pbp_2020_2025.csv
+└── notebooks/
+    ├── data_collection.ipynb
+    └── win_probability_model.ipynb
+```
+
+---
+
+## Phase 2: Modeling (In Progress)
+
+### Notebook
+- Created `win_probability_model.ipynb` inside `notebooks/`
+- Confirmed correct kernel (venv) using `sys.executable`
+- Confirmed working directory using `os.getcwd()`
+- Loaded CSV using relative path: `../data/nba_pbp_2020_2025.csv`
+
+### Raw Data Columns (Key ones)
+| Column | Description |
+|---|---|
+| `gameId` | Unique identifier per game |
+| `clock` | Time remaining in period (format: `PT11M43.00S`) |
+| `period` | Quarter number (1–4+) |
+| `scoreHome` | Home team score at that moment |
+| `scoreAway` | Away team score at that moment |
+| `teamTricode` | 3-letter team code (e.g. ATL, ORL) |
+| `actionType` | Type of play (shot, rebound, foul, etc.) |
+| `location` | `h` = home, `v` = visitor |
+
+### Key Decisions Made
+- **Workflow:** Explore and train in notebook → move to `.py` file for production
+- **Model:** XGBoost (planned)
+- **Experiment tracking:** MLflow (planned, set up from the start)
+
+---
+
+## Phase 3: Feature Engineering (Planned)
+
+### Features to Build
+| Feature | Source | Notes |
+|---|---|---|
+| `score_differential` | `scoreHome - scoreAway` | Core feature — most important signal |
+| `seconds_remaining` | `clock` + `period` | Convert `PT11M43.00S` to total seconds left in game |
+| `period` | Already exists | Q1 vs Q4 context matters |
+| `is_home` | `location` column | Home team wins ~60% of games |
+| `possession_count` | Derived | Used by NBA/AWS model |
+
+### Target Variable (To Be Built)
+- Need to determine who won each game using the **final row's score** per `gameId`
+- Label: `home_team_won` → 1 if `scoreHome > scoreAway` at game end, else 0
+- Must be joined back onto **every row** of that game
+
+---
+
+## Phase 4: Full Stack (Planned)
+
+### Backend
+- FastAPI to serve model predictions
+- WebSockets for live game updates
+- PostgreSQL to store: game state inputs, prediction results, team/game metadata
+
+### Frontend
+- React app with user authentication (Google/Apple sign-in)
+- Live game dashboard: score, quarter, time left, win probability
+- Win probability graph updating in real time
+
+---
+
+## Key Concepts Learned
+- Relative file paths go "up" a directory with `..`
+- `os.getcwd()` is better than `pwd` for checking working directory in production code
+- Activating venv in terminal does NOT automatically apply to notebook kernel — must set kernel manually
+- Random train/test split is wrong for time-series game data — must split by date
+- The model doesn't need raw home/away scores, just the **difference**
+- Target variable must come from the final game state and be joined to every row
