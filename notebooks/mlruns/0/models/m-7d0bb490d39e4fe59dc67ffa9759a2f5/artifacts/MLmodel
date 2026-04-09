@@ -1,0 +1,22 @@
+artifact_path: /Users/hussaintaheri/Desktop/sports-win-predictor/notebooks/mlruns/0/models/m-7d0bb490d39e4fe59dc67ffa9759a2f5/artifacts
+flavors:
+  python_function:
+    data: model.ubj
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.xgboost
+    python_version: 3.13.5
+  xgboost:
+    code: null
+    data: model.ubj
+    model_class: xgboost.sklearn.XGBClassifier
+    model_format: ubj
+    xgb_version: 3.2.0
+mlflow_version: 3.10.1
+model_id: m-7d0bb490d39e4fe59dc67ffa9759a2f5
+model_size_bytes: 410815
+model_uuid: m-7d0bb490d39e4fe59dc67ffa9759a2f5
+prompts: null
+run_id: 278fd771e3494e7e8ddfa21862fa9b10
+utc_time_created: '2026-04-09 22:13:07.746835'
