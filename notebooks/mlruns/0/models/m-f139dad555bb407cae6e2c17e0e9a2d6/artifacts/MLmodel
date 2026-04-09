@@ -1,0 +1,22 @@
+artifact_path: /Users/hussaintaheri/Desktop/sports-win-predictor/notebooks/mlruns/0/models/m-f139dad555bb407cae6e2c17e0e9a2d6/artifacts
+flavors:
+  catboost:
+    catboost_version: 1.2.10
+    code: null
+    data: model.cb
+    model_type: CatBoostClassifier
+    save_format: cbm
+  python_function:
+    data: model.cb
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.catboost
+    python_version: 3.13.5
+mlflow_version: 3.10.1
+model_id: m-f139dad555bb407cae6e2c17e0e9a2d6
+model_size_bytes: 1120960
+model_uuid: m-f139dad555bb407cae6e2c17e0e9a2d6
+prompts: null
+run_id: c9f982ecfb4245499a98bcf0bcf3ebfe
+utc_time_created: '2026-04-08 23:30:44.221767'
