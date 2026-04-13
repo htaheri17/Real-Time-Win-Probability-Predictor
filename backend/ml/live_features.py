@@ -16,8 +16,8 @@ def parse_clock(clock, period):
 
     return seconds
 
-
-action_types = [
+def live_data_fe(data):
+    action_types = [
 "actionType_Ejection", 
 "actionType_Foul",
 "actionType_Free Throw",
@@ -31,8 +31,7 @@ action_types = [
 "actionType_Turnover",
 "actionType_Violation"]
 
-def live_data_fe(data):
-    df = pd.DataFrame(data)
+    df = pd.DataFrame([data])
 
     df["seconds"] = df.apply(lambda row: parse_clock(row["clock"], row["period"]), axis = 1)
     

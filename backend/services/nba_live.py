@@ -10,8 +10,6 @@ def get_today_game_ids(scoreboard):
         game_ids.append(string_game_ids[i]["gameId"])
     return game_ids
 
-
-
 def get_live_play_by_play(game_id):
     dataset= PlayByPlay(game_id).actions
     our_data = {}
