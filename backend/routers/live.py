@@ -2,7 +2,7 @@
 from fastapi import WebSocket
 from fastapi import APIRouter
 # import our functions 
-from services.nba_live import get_today_game_ids, get_live_play_by_play
+from services.nba_live import get_today_game_ids, get_live_play_by_play, ScoreBoard
 from ml.live_features import parse_clock, live_data_fe
 from ml.predict import make_predictions
 
@@ -17,8 +17,9 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     # after accepting the connection we now need a loop that runs the entire game
     while True:
+        scoreboard = ScoreBoard()
         # recieve the game id from the api
-        game_id = get_today_game_ids()
+        game_id = get_today_game_ids(scoreboard)
         if len(game_id) > 0:
             # recieve the play by play data using the game id
             data = get_live_play_by_play(game_id)
