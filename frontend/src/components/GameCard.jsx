@@ -1,6 +1,6 @@
 function GameCard(props) {
     return (
-        <div className = "flex justify-between">
+        <div className = "flex justify-between items-center p-6 bg-[#232323] shadow-xl/30 rounded-xl py-8 px-8 m-8 w-5/6 mx-auto">
             <div className = "flex flex-col">
                 <div className = "flex items-center">
                     <img src = {props.home_team_img} alt = "home team logo" height = "75" width = "75"></img>

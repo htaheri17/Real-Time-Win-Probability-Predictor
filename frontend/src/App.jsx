@@ -1,8 +1,10 @@
 import GameCard from "./components/GameCard.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 function App() {
   return (
     <div className = "bg-[#1A1A1A] min-h-screen">
+      <Navbar />
       <GameCard 
       home_team_img = "https://upload.wikimedia.org/wikipedia/sco/0/01/Golden_State_Warriors_logo.svg"
         home_team_abv = "GSW"
