@@ -3,7 +3,7 @@ import GameCard from "./GameCard";
 function DashBoard() {
     return (
         <GameCard 
-      home_team_img = "https://upload.wikimedia.org/wikipedia/sco/0/01/Golden_State_Warriors_logo.svg"
+        home_team_img = "https://upload.wikimedia.org/wikipedia/sco/0/01/Golden_State_Warriors_logo.svg"
         home_team_abv = "GSW"
         home_team_score = "50"
         home_team_wins = "73"

@@ -9,7 +9,7 @@ function App() {
     <div className = "bg-[#1A1A1A] min-h-screen">
       <Navbar />
       <Routes>
-        <Route path = "/testgameid" element = { <GameDetail /> } />
+        <Route path = "/game/testgameid" element = { <GameDetail /> } />
         <Route path = "/" element = { <DashBoard /> } />
       </Routes>
     </div>

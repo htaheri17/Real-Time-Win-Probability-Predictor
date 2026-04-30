@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 function GameCard(props) {
     return (
-        <Link to = "/testgameid">
+        <Link to = "/game/testgameid">
             <div className = "flex justify-between items-center p-6 bg-[#232323] shadow-xl/30 rounded-xl py-8 px-8 m-8 w-5/6 mx-auto hover:border border-[#22CE83]">
                 <div className = "flex flex-col">
                     <div className = "flex items-center">
