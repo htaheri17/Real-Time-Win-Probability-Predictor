@@ -17,8 +17,8 @@ def get_connection():
     except (Exception, psycopg2.Error) as error:
         print(f"Error while connecting to PostgreSQL: {error}")
 
-def close_connection(connection, cursor):
-    # always close the cursor and application
+def close_connection(cursor, connection):
+    # always close application
     if connection:
         cursor.close()
         connection.close()

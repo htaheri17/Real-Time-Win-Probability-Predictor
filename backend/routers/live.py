@@ -39,4 +39,4 @@ async def websocket_endpoint(websocket: WebSocket, game_id):
             # gets the probability from our model and pushes to the client while waiting until the send is complete
             await websocket.send_json(data)
     else:   
-        await websocket.send_text("Sorry there are currenly no games being played right now. Chech back later :)")
+        await websocket.send_text("Sorry there are currenly no games being played right now. Check back later :)")
