@@ -2,9 +2,9 @@ from nba_api.live.nba.endpoints.scoreboard import ScoreBoard
 from nba_api.live.nba.endpoints.playbyplay import PlayByPlay
 from nba_api.live.nba.endpoints.boxscore import BoxScore
 
-scoreboard = ScoreBoard()
 
-def get_today_game_ids(scoreboard):
+def get_today_game_ids():
+    scoreboard = ScoreBoard()
     string_game_ids = scoreboard.get_dict()["scoreboard"]["games"]
     game_ids = []
     for i in range(len(string_game_ids)):

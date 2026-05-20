@@ -2,19 +2,15 @@
 from fastapi import WebSocket
 from fastapi import APIRouter
 # import our functions 
-from services.nba_live import get_today_game_ids, get_live_play_by_play, ScoreBoard, get_box_score
-from ml.live_features import parse_clock, live_data_fe
-from ml.predict import make_predictions
+from ..services.nba_live import get_today_game_ids, get_live_play_by_play, ScoreBoard, get_box_score
+from ..ml.live_features import parse_clock, live_data_fe
+from ..ml.predict import make_predictions
 
 # create router instance like a cointainer that holds all instances and like a mini app that groups related endpoints together
-router = APIRouter()
-
-scoreboard = ScoreBoard()
-# recieve the game ids from the api
-game_ids = get_today_game_ids(scoreboard)
+router_ml = APIRouter()
     
 # this tells fastapi that a client connected via ws and run the function below
-@router.websocket("/ws/{game_id}")
+@router_ml.websocket("/ws/{game_id}")
 # defining the function that handles the connection
 async def websocket_endpoint(websocket: WebSocket, game_id):
     
