@@ -22,6 +22,8 @@ function DashBoard() {
     gameDatas.map(data =>
       <div key = {data.gameId}>
         <GameCard 
+        gameId = {data.gameId}
+        
         home_team_img = {hashMap.get(data.homeTeam.teamName)}
         home_team_abv = {data.homeTeam.teamTricode}
         home_team_score = {data.homeTeam.score}
