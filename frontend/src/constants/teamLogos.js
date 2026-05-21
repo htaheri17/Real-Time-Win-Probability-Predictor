@@ -1,5 +1,5 @@
 // initialize a hash map of team names to the team logos to be able to display to our frontend
-const hash_map = new Map([
+const hashMap = new Map([
   ["Hawks", "./logos/Atlanta_Hawks_logo.svg"],
   ["Celtics", "./logos/Boston_Celtics.svg"],
   ["Nets", "./logos/Brooklyn_Nets_primary_icon_logo_2024.svg"],

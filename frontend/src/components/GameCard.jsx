@@ -9,7 +9,7 @@ function GameCard(props) {
                         <h1>{props.home_team_score}</h1>
                     </div>
                     <h2>{props.home_team_abv}</h2>
-                    <p>({props.home_team_wins} - {props.home_team_loses})</p>
+                    <p>({props.home_team_wins} - {props.home_team_losses})</p>
                 </div>
                 
                 <div className = "flex flex-col">
@@ -23,7 +23,7 @@ function GameCard(props) {
                         <img src = {props.away_team_img} alt = "away team logo"  height = "75" width = "75"></img>
                     </div>
                     <h2>{props.away_team_abv}</h2>
-                    <p>({props.away_team_wins} - {props.away_team_loses})</p>
+                    <p>({props.away_team_wins} - {props.away_team_losses})</p>
                 </div>
             </div>
         </Link>

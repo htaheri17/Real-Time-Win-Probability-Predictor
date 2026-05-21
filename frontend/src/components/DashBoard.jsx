@@ -1,23 +1,44 @@
 import GameCard from "./GameCard";
+import hashMap from "../constants/teamLogos";
+import { useEffect, useState } from "react";
+
 
 function DashBoard() {
-    return (
+
+  const [gameDatas, setGameDatas] = useState([]);
+
+  useEffect(() => {
+    fetch("/games")
+      .then(response => {
+        if(!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(data => setGameDatas(data));
+    }, []);
+
+  return (
+    gameDatas.map(data =>
+      <div key = {data.gameId}>
         <GameCard 
-        home_team_img = "https://upload.wikimedia.org/wikipedia/sco/0/01/Golden_State_Warriors_logo.svg"
-        home_team_abv = "GSW"
-        home_team_score = "50"
-        home_team_wins = "73"
-        home_team_loses = "9"
+        home_team_img = {hashMap.get(data.homeTeam.teamName)}
+        home_team_abv = {data.homeTeam.teamTricode}
+        home_team_score = {data.homeTeam.score}
+        home_team_wins = {data.homeTeam.wins}
+        home_team_losses = {data.awayTeam.losses}
 
-        period = "2"
-        game_clock = "4:37"
+        period = {data.period}
+        game_clock = {data.gameClock}
 
-        away_team_img = "https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg"
-        away_team_abv = "LAL"
-        away_team_score = "42"
-        away_team_wins = "40"
-        away_team_loses = "42"
-      />
+        away_team_img = {hashMap.get(data.awayTeam.teamName)}
+        away_team_abv = {data.awayTeam.teamTricode}
+        away_team_score = {data.awayTeam.score}
+        away_team_wins = {data.awayTeam.wins}
+        away_team_losses = {data.awayTeam.losses}
+        />
+      </div>
     )
+  )
 }
 export default DashBoard
