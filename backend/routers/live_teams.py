@@ -22,7 +22,7 @@ async def games():
 async def gameDetails(gameId):
     try:
         homeData, awayData = get_box_score(gameId)
-        return {"homeData": homeData, "awayData": awayData}
+        return {"homeTeam": homeData, "awayTeam": awayData}
 
     except Exception:
         raise HTTPException(

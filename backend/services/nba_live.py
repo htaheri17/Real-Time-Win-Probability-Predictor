@@ -27,6 +27,9 @@ def get_box_score(game_id):
     home_data = {}
     away_data = {}
 
+    home_data["teamName"] = data["game"]["homeTeam"]["teamName"]
+    home_data["teamCity"] = data["game"]["homeTeam"]["teamCity"]
+    home_data["teamTricode"] = data["game"]["homeTeam"]["teamTricode"]
     home_data["fieldGoals"] = str(data["game"]["homeTeam"]["statistics"]["fieldGoalsMade"]) + "/" + str(data["game"]["homeTeam"]["statistics"]["fieldGoalsAttempted"])
     home_data["fieldGoalsPercentage"] = data["game"]["homeTeam"]["statistics"]["fieldGoalsPercentage"]
     home_data["threePointers"] = str(data["game"]["homeTeam"]["statistics"]["threePointersMade"]) + "/" + str(data["game"]["homeTeam"]["statistics"]["threePointersAttempted"])
@@ -40,6 +43,9 @@ def get_box_score(game_id):
     home_data["turnovers"] =  data["game"]["homeTeam"]["statistics"]["turnoversTotal"]
     home_data["fouls"] =  data["game"]["homeTeam"]["statistics"]["foulsTeam"]
 
+    away_data["teamName"] = data["game"]["awayTeam"]["teamName"]
+    away_data["teamCity"] = data["game"]["awayTeam"]["teamCity"]
+    home_data["teamTricode"] = data["game"]["awayTeam"]["teamTricode"]
     away_data["fieldGoals"] = str(data["game"]["awayTeam"]["statistics"]["fieldGoalsMade"]) + "/" + str(data["game"]["awayTeam"]["statistics"]["fieldGoalsAttempted"])
     away_data["fieldGoalsPercentage"] = data["game"]["awayTeam"]["statistics"]["fieldGoalsPercentage"]
     away_data["threePointers"] = str(data["game"]["awayTeam"]["statistics"]["threePointersMade"]) + "/" + str(data["game"]["awayTeam"]["statistics"]["threePointersAttempted"])
