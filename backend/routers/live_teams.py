@@ -1,4 +1,3 @@
-from ..services.nba_live import get_today_game_ids
 from ..services.nba_live import get_box_score
 from ..services.nba_live import ScoreBoard
 from fastapi import APIRouter, HTTPException
@@ -18,4 +17,18 @@ async def games():
             status_code = 404,
             detail = "Sorry there are currenly no games being played right now. Check back later :)"
         )
+
+@router_teams.get("/games/{gameId}")
+async def gameDetails(gameId):
+    try:
+        homeData, awayData = get_box_score(gameId)
+        return {"homeData": homeData, "awayData": awayData}
+
+    except Exception:
+        raise HTTPException(
+            status_code = 404,
+            detail = "Sorry there is a no data for the game being played right now. Check back later :)"
+        )
+    
+    
 
