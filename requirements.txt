@@ -10,3 +10,4 @@ nba_api
 lightgbm
 catboost
 optuna
+psycopg2

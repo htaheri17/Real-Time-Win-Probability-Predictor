@@ -1,12 +1,11 @@
-from connection import get_connection, close_connection
+from .connection import get_connection, close_connection
 
 # insert the data into the table we need it for the graph to see the past data 
 def insert_predictions(game_id, home_team, away_team, home_prediction, away_prediction, game_time):
     conn = get_connection()
     cursor = conn.cursor()
     query = "INSERT INTO game_predictions (game_id, home_team, away_team, home_prediction, away_prediction, game_time) VALUES(%s, %s, %s, %s, %s, %s);"
-    cursor.execute(query, (game_id, home_team, away_team, home_prediction, away_prediction, game_time)
-    )
+    cursor.execute(query, (game_id, home_team, away_team, home_prediction, away_prediction, game_time))
     conn.commit()
     close_connection(cursor, conn)
 

@@ -45,7 +45,7 @@ def get_box_score(game_id):
 
     away_data["teamName"] = data["game"]["awayTeam"]["teamName"]
     away_data["teamCity"] = data["game"]["awayTeam"]["teamCity"]
-    home_data["teamTricode"] = data["game"]["awayTeam"]["teamTricode"]
+    away_data["teamTricode"] = data["game"]["awayTeam"]["teamTricode"]
     away_data["fieldGoals"] = str(data["game"]["awayTeam"]["statistics"]["fieldGoalsMade"]) + "/" + str(data["game"]["awayTeam"]["statistics"]["fieldGoalsAttempted"])
     away_data["fieldGoalsPercentage"] = data["game"]["awayTeam"]["statistics"]["fieldGoalsPercentage"]
     away_data["threePointers"] = str(data["game"]["awayTeam"]["statistics"]["threePointersMade"]) + "/" + str(data["game"]["awayTeam"]["statistics"]["threePointersAttempted"])
