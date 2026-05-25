@@ -63,6 +63,7 @@ function GameDetail() {
         }, [gameId])
 
     return(
+        Object.keys(gameDetail).length > 1 ? 
         <div className = "flex flex-row">
             <div className = "flex flex-col border-2 border-transparent hover:border-[#CF236D] transition-colors duration-300 w-1/3 mt-10">
                 <h1>Predictions:</h1>
@@ -128,6 +129,7 @@ function GameDetail() {
                 </div>
             </div>
         </div>
+        : <div>Loading...</div>
     )
 }
 export default GameDetail;
