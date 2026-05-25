@@ -4,10 +4,47 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 
-const data =[
-    { "Time": "Q2 - 4:37", "Warriors": 73, "Lakers": 27 },
-    { "Time": "Q2: 5:37", "Warriors": 75, "Lakers": 25}
-] 
+
+function GameGraph() {
+    const { gameId } = useParams();
+    const [gameGraph, setGameGraph] = useState([]);
+
+    useEffect(() => {
+        fetch(`/graph/${gameId}`)
+            .then(response => {
+                if(!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(data => setGameGraph(data))
+    }, [gameId])
+
+    const gameGraphData = gameGraph.map(row => ({"Time": row.gameTime, [row.homeTeam]: row.homePred, [row.awayTeam]: row.awayPred}));
+
+    return(
+        <div>
+                <LineChart
+                style = {{ width: '100%', aspectRatio: 1.618, maxWidth: 600, marginTop: '100px' }}
+                responsive
+                data = {gameGraphData}
+                margin = {{top: 20, right: 20, bottom: 5, left: 0}}
+            >
+                <XAxis dataKey = "Time" stroke = "white" />
+                <YAxis width = "auto" stroke = "white" />
+                <Tooltip
+                    cursor = {{ stroke: "var(--color-border-2)", }}
+                    contentStyle = {{ backgroundColor: 'var(--color-surface-raised)', borderColor: 'var(--color-border-2)', }}
+                />
+                <Legend />
+                <Line type = "monotone" dataKey = {gameGraph[0]?.homeTeam ?? "Home Team"} stroke = "#22CE83" dot = {{ fill: 'var(--color-surface-base)', }} activeDot = {{ r: 8, stroke: 'var(--color-surface-base)' }} />
+                <Line type = "monotone" dataKey = {gameGraph[0]?.awayTeam ?? "Away Team"} stroke = "#CF236D" dot = {{ fill: 'var(--color-surface-base)', }} activeDot = {{ r: 8, stroke: 'var(--color-surface-base)' }} />
+
+            </LineChart>
+        </div>
+        )
+}
+
 
 function GameDetail() {
     const { gameId } = useParams();
@@ -15,7 +52,7 @@ function GameDetail() {
     const [gameDetail, setGameDetail] = useState({});
 
     useEffect(() => {
-            fetch(`/games/${gameId}`)
+        fetch(`/games/${gameId}`)
             .then(response => {
                 if(!response.ok) {
                     throw new Error("Network response was not ok");
@@ -37,23 +74,8 @@ function GameDetail() {
                     <img src = {gameDetail.awayTeam.teamName} height = "50" width = "50" />
                     <h1 className = "w-1/2 text-center">{gameDetail.awayTeam.teamCity + " " + gameDetail.awayTeam.teamName}: 27%</h1>
                 </div>
-                <LineChart
-                style = {{ width: '100%', aspectRatio: 1.618, maxWidth: 600, marginTop: '100px' }}
-                responsive
-                data = {data}
-                margin = {{top: 20, right: 20, bottom: 5, left: 0}}
-            >
-                <XAxis dataKey = "Time" stroke = "white" />
-                <YAxis width = "auto" stroke = "white" />
-                <Tooltip
-                    cursor = {{ stroke: "var(--color-border-2)", }}
-                    contentStyle = {{ backgroundColor: 'var(--color-surface-raised)', borderColor: 'var(--color-border-2)', }}
-                />
-                <Legend />
-                <Line type = "monotone" dataKey = "Warriors" stroke = "#22CE83" dot = {{ fill: 'var(--color-surface-base)', }} activeDot = {{ r: 8, stroke: 'var(--color-surface-base)' }} />
-                <Line type = "monotone" dataKey = "Lakers" stroke = "#CF236D" dot = {{ fill: 'var(--color-surface-base)', }} activeDot = {{ r: 8, stroke: 'var(--color-surface-base)' }} />
 
-            </LineChart>
+            <GameGraph />
             </div>
 
             <div className = "grid grid-rows-12 grid-cols-3 gap-70 grid-flow-row">
@@ -108,4 +130,4 @@ function GameDetail() {
         </div>
     )
 }
-export default GameDetail
+export default GameDetail;
