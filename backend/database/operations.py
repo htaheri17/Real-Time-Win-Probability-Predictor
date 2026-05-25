@@ -8,16 +8,16 @@ def insert_predictions(game_id, home_team, away_team, home_prediction, away_pred
     cursor.execute(query, (game_id, home_team, away_team, home_prediction, away_prediction, game_time)
     )
     conn.commit()
-    close_connection(conn, cursor)
+    close_connection(cursor, conn)
 
 # get the predictions from the table so were able to display the data 
 def get_predictions(game_id):
     conn = get_connection()
     cursor = conn.cursor()
-    query = "SELECT * FROM game_predictions WHERE gameid = (%s) ORDER BY date ASC;"
+    query = "SELECT * FROM game_predictions WHERE game_id = (%s) ORDER BY date ASC;"
     cursor.execute(query, (game_id,))
     pred = cursor.fetchall()
-    close_connection(conn, cursor)
+    close_connection(cursor, conn)
     return pred
 
 

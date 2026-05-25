@@ -31,5 +31,6 @@ const hashMap = new Map([
   ["Jazz", "./logos/Utah_Jazz_logo_2025.svg"],
   ["Wizards", "./logos/Washington_Wizards_logo.svg"],
 ]);
+export default hashMap;
 
 

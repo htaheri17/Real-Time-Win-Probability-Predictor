@@ -28,7 +28,7 @@ function DashBoard() {
         home_team_abv = {data.homeTeam.teamTricode}
         home_team_score = {data.homeTeam.score}
         home_team_wins = {data.homeTeam.wins}
-        home_team_losses = {data.awayTeam.losses}
+        home_team_losses = {data.homeTeam.losses}
 
         period = {data.period}
         game_clock = {data.gameClock}

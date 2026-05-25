@@ -72,7 +72,7 @@ function GameDetail() {
                     <h1 className = "w-1/2 text-center">{gameDetail.homeTeam.teamCity + " " + gameDetail.homeTeam.teamName}: 73%</h1>
                 </div>
                 <div className = "flex">
-                    <img src = {gameDetail.awayTeam.teamName} height = "50" width = "50" />
+                    <img src = {hashMap.get(gameDetail.awayTeam.teamName)} height = "50" width = "50" />
                     <h1 className = "w-1/2 text-center">{gameDetail.awayTeam.teamCity + " " + gameDetail.awayTeam.teamName}: 27%</h1>
                 </div>
 
