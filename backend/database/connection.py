@@ -1,14 +1,23 @@
 import psycopg2
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+USER = os.environ.get(("USER"))
+PASSWORD = os.environ.get(("PASSWORD"))
+HOST = os.environ.get(("HOST"))
+PORT = os.environ.get(("PORT"))
+DATABASE = os.environ.get(("DATABASE"))
 
 def get_connection():
     try:
         # make the connection to the database
         connection = psycopg2.connect(
-            user = "postgres",
-            password = "",
-            host = "localhost",
-            port = "5432",
-            database = "prediction_history"
+            user = USER,
+            password = PASSWORD,
+            host = HOST,
+            port = PORT,
+            database = DATABASE
         )
         print("You are now connected to prediction_history database")
         return connection

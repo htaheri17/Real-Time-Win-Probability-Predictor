@@ -1,10 +1,15 @@
 import mlflow
 import mlflow.xgboost
+from dotenv import load_dotenv
+import os
+
+MODEL_URI = os.environ.get("MODEL_URI")
+URI = os.environ.get("URI")
 
 # defines where mlflow logs the experiment info
-mlflow.set_tracking_uri("sqlite:////Users/hussaintaheri/Desktop/sports-win-predictor/notebooks/mlflow.db")
+mlflow.set_tracking_uri(URI)
 # load the model using the saved model from the artifact path
-model_uri = "/Users/hussaintaheri/Desktop/sports-win-predictor/notebooks/mlruns/0/models/m-7803c49ebe16446086109029a45020a9/artifacts/"
+model_uri = MODEL_URI
 # load trained model in the model variable
 model = mlflow.xgboost.load_model(model_uri)  
 
