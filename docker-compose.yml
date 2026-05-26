@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: ${PASSWORD}
       POSTGRES_DB: ${DATABASE}
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresqld
     ports:
       - "5432:5432"
   
@@ -17,13 +17,16 @@ services:
       - "8000:8000"
     environment:
       DATABASE_URI: postgres://${USER}:${PASSWORD}@db:${PORT}/${DATABASE}
+      PYTHONPATH: /app
+      MODEL_URI: ${MODEL_URI}
+      URI: ${URI}
     depends_on:
       - db
 
   frontend:
     build: ./frontend
     ports: 
-      - "3000:3000"
+      - "3000:80"
     environment:
       REACT_APP_API_URL: http://backend:8000
     depends_on:

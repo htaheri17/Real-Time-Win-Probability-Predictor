@@ -3,6 +3,8 @@ import mlflow.xgboost
 from dotenv import load_dotenv
 import os
 
+load_dotenv()
+
 MODEL_URI = os.environ.get("MODEL_URI")
 URI = os.environ.get("URI")
 

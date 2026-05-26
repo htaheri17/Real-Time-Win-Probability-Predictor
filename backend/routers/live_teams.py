@@ -1,8 +1,8 @@
-from ..services.nba_live import get_box_score
-from ..services.nba_live import ScoreBoard
+from services.nba_live import get_box_score
+from services.nba_live import ScoreBoard
 from fastapi import APIRouter, HTTPException
 from json import JSONDecodeError
-from ..database.operations import get_predictions
+from database.operations import get_predictions
 
 router_teams = APIRouter()
 

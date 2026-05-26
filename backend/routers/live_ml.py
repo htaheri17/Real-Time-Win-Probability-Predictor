@@ -2,15 +2,13 @@
 from fastapi import WebSocket, WebSocketDisconnect
 from fastapi import APIRouter
 # import our functions 
-from ..services.nba_live import get_today_game_ids, get_live_play_by_play, ScoreBoard, get_box_score
-from ..ml.live_features import parse_clock, live_data_fe
-from ..ml.predict import make_predictions
+from services.nba_live import get_today_game_ids, get_live_play_by_play, ScoreBoard, get_box_score
+from ml.live_features import parse_clock, live_data_fe
+from ml.predict import make_predictions
 import asyncio
 
 # create router instance like a cointainer that holds all instances and like a mini app that groups related endpoints together
 router_ml = APIRouter()
-
-game_ids = get_today_game_ids()
 
 
 # this tells fastapi that a client connected via ws and run the function below
@@ -21,6 +19,8 @@ async def websocket_endpoint(websocket: WebSocket, game_id):
     try:
         # establish the handshake connection with the client
         await websocket.accept()
+
+        game_ids = get_today_game_ids()
         if len(game_ids) > 0:
             # after accepting the connection we now need a loop that runs the entire game
             while True:
