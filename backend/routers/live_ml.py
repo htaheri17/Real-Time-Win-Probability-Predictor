@@ -4,12 +4,12 @@ from fastapi import APIRouter
 # import our functions 
 from services.nba_live import get_today_game_ids, get_live_play_by_play, ScoreBoard, get_box_score
 from ml.live_features import parse_clock, live_data_fe
+from database.operations import insert_predictions
 from ml.predict import make_predictions
 import asyncio
 
 # create router instance like a cointainer that holds all instances and like a mini app that groups related endpoints together
 router_ml = APIRouter()
-
 
 # this tells fastapi that a client connected via ws and run the function below
 @router_ml.websocket("/ws/{game_id}")
@@ -37,6 +37,14 @@ async def websocket_endpoint(websocket: WebSocket, game_id):
                     # since our we want box scores to be constantly updated we have to add it here
                     home, away = get_box_score(game_id)
                     data = {"prediction": pred, "home": home, "away": away}
+
+                    home_team = home["teamName"]
+                    away_team = away["teamName"]
+                    home_prediction = round(pred, 2)
+                    away_prediction = round(abs(pred - 1), 2)
+                    game_time = parse_clock(pbp_data["clock"], pbp_data["period"])
+
+                    insert_predictions(game_id, home_team, away_team, home_prediction, away_prediction, game_time)
 
                     # gets the probability from our model and pushes to the client while waiting until the send is complete
                     await websocket.send_json(data)

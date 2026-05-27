@@ -14,7 +14,7 @@ def get_predictions(game_id):
     conn = get_connection()
     cursor = conn.cursor()
     query = "SELECT * FROM game_predictions WHERE game_id = (%s) ORDER BY date ASC;"
-    cursor.execute(query, (game_id,))
+    cursor.execute(query, (game_id))
     pred = cursor.fetchall()
     close_connection(cursor, conn)
     return pred
